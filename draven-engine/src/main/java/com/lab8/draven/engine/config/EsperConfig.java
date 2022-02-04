@@ -20,7 +20,7 @@ public class EsperConfig {
         mobillocaltion.put("name",String.class);
         mobillocaltion.put("number",String.class);
         config.addEventType("mobillocaltion",mobillocaltion);
-          //add event type
+          //add event typeaaa
       //  config.addEventType(PersonEvent.class);
 
         EPServiceProvider epServiceProvider = EPServiceProviderManager.getDefaultProvider(config);
