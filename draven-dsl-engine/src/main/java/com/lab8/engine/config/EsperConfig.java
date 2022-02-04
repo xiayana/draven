@@ -12,16 +12,17 @@ import java.util.Map;
 
 @Configuration
 public class EsperConfig {
-    public  final  static Map<String, EPStatement> STATEMENT_MAP = new HashMap<>();
+
+    public final static Map<Integer, EPStatement> STATEMENT_MAP = new HashMap<>();
+
     @Bean
     public EPServiceProvider epServiceProvider() {
         com.espertech.esper.client.Configuration config = new com.espertech.esper.client.Configuration();
-        Map<String,Object> mobillocaltion = new HashMap<>();
-        mobillocaltion.put("name",String.class);
-        mobillocaltion.put("number",String.class);
-        config.addEventType("mobillocaltion",mobillocaltion);
-          //add event typeaaa
-      //  config.addEventType(PersonEvent.class);
+        Map<String, Object> mobillocaltion = new HashMap<>();
+        mobillocaltion.put("name", String.class);
+        mobillocaltion.put("number", String.class);
+        config.addEventType("mobillocaltion", mobillocaltion);
+        //  config.addEventType(PersonEvent.class);
 
         EPServiceProvider epServiceProvider = EPServiceProviderManager.getDefaultProvider(config);
         // epServiceProvider.initialize();

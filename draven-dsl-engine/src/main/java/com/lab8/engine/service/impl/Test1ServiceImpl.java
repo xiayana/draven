@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class Test1ServiceImpl implements Test1Service {
      * 查询多条数据
      *
      * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param limit  查询条数
      * @return 对象列表
      */
     @Override
@@ -83,5 +84,10 @@ public class Test1ServiceImpl implements Test1Service {
             i += test1Dao.update(test1);
         }
         return i;
+    }
+
+    @Override
+    public List<Test1> queryAll(Test1 test1) {
+        return test1Dao.queryAll(test1);
     }
 }
