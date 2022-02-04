@@ -1,4 +1,4 @@
-package com.lab8.draven.engine;
+package com.lab8.engine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

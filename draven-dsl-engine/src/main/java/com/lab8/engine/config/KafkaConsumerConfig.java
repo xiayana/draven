@@ -1,6 +1,6 @@
-package com.lab8.draven.engine.config;
+package com.lab8.engine.config;
 
-import com.lab8.draven.engine.listener.RawDataListener;
+import com.lab8.engine.listener.RawDataListener;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +18,8 @@ import java.util.Map;
 
 /**
  * kafka消费者配置
- * @author xy
  *
+ * @author xy
  */
 @Configuration
 @EnableKafka
@@ -66,13 +66,4 @@ public class KafkaConsumerConfig {
         propsMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoOffsetReset);
         return propsMap;
     }
-    /**
-     * kafka监听
-     * @return
-     */
-    @Bean
-    public RawDataListener listener() {
-        return new RawDataListener();
-    }
-
 }
