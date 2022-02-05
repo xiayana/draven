@@ -25,7 +25,7 @@ public class RawDataListener {
     /**
      * 实时获取kafka数据(生产一条，监听生产topic自动消费一条)
      */
-    @KafkaListener(containerFactory = "kafkaListenerContainerFactory", topics = {"demo"})
+   // @KafkaListener(containerFactory = "kafkaListenerContainerFactory", topics = {"${kafka.consumer.topic}"})
     public void bizTagListener(List<ConsumerRecord<?, ?>> records, Acknowledgment ack) {
         long offset = 0;
         int partition = 0;
