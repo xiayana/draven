@@ -14,6 +14,7 @@
         <result property="esperSql" column="esper_sql" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
@@ -35,7 +36,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="Test1Map">
         select
-        allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time
+        id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time
 
         from test1
         <where>
@@ -72,6 +73,7 @@
             <if test="createTime != null">
                 and create_time = #{createTime}
             </if>
+             and `status` = 1
         </where>
     </select>
 

@@ -29,7 +29,6 @@ public class EsperListener implements UpdateListener {
     @PostConstruct
     public void statr1() {
         List<Test1> rules = test1Service.queryAll(new Test1());
-
         rules.forEach(rule ->
                 esperService.addEsperListener(rule.getId(), rule.getEsperSql()));
     }
@@ -38,9 +37,10 @@ public class EsperListener implements UpdateListener {
     public void update(EventBean[] eventBeans, EventBean[] eventBeans1) {
         if (eventBeans != null) {
             System.out.println(String.format
-                    ("事件1 匹配成功，匹配到的位置为：%s, 要发送的手机号是：%s,原始内容：%s",
-                            eventBeans[0].get("name"),
-                            eventBeans[0].get("number"),
+                    ("事件1 匹配成功，匹配到的位置为：%s, 要发送的手机号是：%s,时间：%s,原始内容：%s",
+                            eventBeans[0].get("cmd"),
+                            eventBeans[0].get("dst"),
+                            System.currentTimeMillis(),
                             eventBeans[0].getUnderlying()
                     ));
         }
