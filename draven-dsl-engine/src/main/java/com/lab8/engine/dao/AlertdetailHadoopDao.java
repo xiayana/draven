@@ -1,18 +1,18 @@
 package com.lab8.engine.dao;
 
-import com.lab8.engine.entity.DravenMetadata;
+import com.lab8.engine.entity.AlertdetailHadoop;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 /**
- * (Test1)表数据库访问层
+ * Ueba告警日志(AlertdetailHadoop)表数据库访问层
  *
  * @author makejava
- * @since 2022-02-04 18:49:00
+ * @since 2022-02-07 15:56:09
  */
 @Mapper
-public interface Test1Dao {
+public interface AlertdetailHadoopDao {
 
     /**
      * 通过ID查询单条数据
@@ -20,7 +20,7 @@ public interface Test1Dao {
      * @param id 主键
      * @return 实例对象
      */
-    DravenMetadata queryById(Integer id);
+    AlertdetailHadoop queryById(Long id);
 
     /**
      * 查询指定行数据
@@ -29,48 +29,48 @@ public interface Test1Dao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<DravenMetadata> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<AlertdetailHadoop> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param test1 实例对象
+     * @param alertdetailHadoop 实例对象
      * @return 对象列表
      */
-    List<DravenMetadata> queryAll(DravenMetadata test1);
+    List<AlertdetailHadoop> queryAll(AlertdetailHadoop alertdetailHadoop);
 
     /**
      * 新增数据
      *
-     * @param test1 实例对象
+     * @param alertdetailHadoop 实例对象
      * @return 影响行数
      */
-    int insert(DravenMetadata test1);
+    int insert(AlertdetailHadoop alertdetailHadoop);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
      *
-     * @param entities List<Test1> 实例对象列表
+     * @param entities List<AlertdetailHadoop> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<DravenMetadata> entities);
+    int insertBatch(@Param("entities") List<AlertdetailHadoop> entities);
 
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
      *
-     * @param entities List<Test1> 实例对象列表
+     * @param entities List<AlertdetailHadoop> 实例对象列表
      * @return 影响行数
      */
-    int insertOrUpdateBatch(@Param("entities") List<DravenMetadata> entities);
+    int insertOrUpdateBatch(@Param("entities") List<AlertdetailHadoop> entities);
 
     /**
      * 修改数据
      *
-     * @param test1 实例对象
+     * @param alertdetailHadoop 实例对象
      * @return 影响行数
      */
-    int update(DravenMetadata test1);
+    int update(AlertdetailHadoop alertdetailHadoop);
 
 }
 

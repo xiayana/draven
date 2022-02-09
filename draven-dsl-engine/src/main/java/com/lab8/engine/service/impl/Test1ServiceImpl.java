@@ -1,6 +1,6 @@
 package com.lab8.engine.service.impl;
 
-import com.lab8.engine.entity.Test1;
+import com.lab8.engine.entity.DravenMetadata;
 import com.lab8.engine.dao.Test1Dao;
 import com.lab8.engine.service.Test1Service;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class Test1ServiceImpl implements Test1Service {
      * @return 实例对象
      */
     @Override
-    public Test1 queryById(Integer id) {
+    public DravenMetadata queryById(Integer id) {
         return this.test1Dao.queryById(id);
     }
 
@@ -40,7 +40,7 @@ public class Test1ServiceImpl implements Test1Service {
      * @return 对象列表
      */
     @Override
-    public List<Test1> queryAllByLimit(int offset, int limit) {
+    public List<DravenMetadata> queryAllByLimit(int offset, int limit) {
         return this.test1Dao.queryAllByLimit(offset, limit);
     }
 
@@ -52,7 +52,7 @@ public class Test1ServiceImpl implements Test1Service {
      * @return 实例对象
      */
     @Override
-    public Test1 insert(Test1 test1) {
+    public DravenMetadata insert(DravenMetadata test1) {
         this.test1Dao.insert(test1);
         return test1;
     }
@@ -64,7 +64,7 @@ public class Test1ServiceImpl implements Test1Service {
      * @return 实例对象
      */
     @Override
-    public int update(Test1 test1) {
+    public int update(DravenMetadata test1) {
         return test1Dao.update(test1);
     }
 
@@ -79,7 +79,7 @@ public class Test1ServiceImpl implements Test1Service {
     public int deleteBatch(List<Integer> ids) {
         int i = 0;
         for (Integer id : ids) {
-            Test1 test1 = new Test1();
+            DravenMetadata test1 = new DravenMetadata();
             test1.setId(id);
             i += test1Dao.update(test1);
         }
@@ -87,7 +87,7 @@ public class Test1ServiceImpl implements Test1Service {
     }
 
     @Override
-    public List<Test1> queryAll(Test1 test1) {
+    public List<DravenMetadata> queryAll(DravenMetadata test1) {
         return test1Dao.queryAll(test1);
     }
 }

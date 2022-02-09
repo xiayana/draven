@@ -1,6 +1,6 @@
 package com.lab8.engine.controller;
 
-import com.lab8.engine.entity.Test1;
+import com.lab8.engine.entity.DravenMetadata;
 import com.lab8.engine.service.Test1Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class Test1Controller {
      * @return 单条数据
      */
     @GetMapping("/selectOne")
-    public Test1 selectOne(Integer id) {
+    public DravenMetadata selectOne(Integer id) {
         return this.test1Service.queryById(id);
     }
 

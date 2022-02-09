@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Test1 implements Serializable {
+public class DravenMetadata implements Serializable {
     private static final long serialVersionUID = 795421817778567919L;
     private Integer id;
     private String allowed;
@@ -21,6 +21,10 @@ public class Test1 implements Serializable {
     private String src;
     private Date timestamp;
     private String user;
+    private String pid;
+    private String ppid;
+    private String time;
+    private String ip;
     private String esperSql;
     private Date updateTime;
     private Date createTime;

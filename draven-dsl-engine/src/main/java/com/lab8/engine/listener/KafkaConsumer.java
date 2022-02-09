@@ -19,7 +19,7 @@ public class KafkaConsumer {
     //下面的主题是一个数组，可以同时订阅多主题，只需按数组格式即可，也就是用“，”隔开
     @KafkaListener(containerFactory = "kafkaListenerContainerFactory", topics = {"${kafka.consumer.topic}"})
     public void receive(String records) {
-       // log.info("消费得到的消息---: " + records);
+        log.info("消费得到的消息---: " + records);
         try {
             EPRuntime epRuntime = epServiceProvider.getEPRuntime();
             Map<String,String> json = JSONObject.parseObject(records, Map.class);

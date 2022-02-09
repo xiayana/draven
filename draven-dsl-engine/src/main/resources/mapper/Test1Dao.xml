@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lab8.engine.dao.Test1Dao">
 
-    <resultMap type="com.lab8.engine.entity.Test1" id="Test1Map">
+    <resultMap type="com.lab8.engine.entity.DravenMetadata" id="Test1Map">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="allowed" column="allowed" jdbcType="VARCHAR"/>
         <result property="cmd" column="cmd" jdbcType="VARCHAR"/>

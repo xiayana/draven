@@ -1,11 +1,11 @@
 package com.lab8.engine.listener;
 
-import com.espertech.esper.client.EPAdministrator;
-import com.espertech.esper.client.EPStatement;
 import com.espertech.esper.client.EventBean;
+import com.espertech.esper.client.EventType;
 import com.espertech.esper.client.UpdateListener;
-import com.lab8.engine.config.EsperConfig;
-import com.lab8.engine.entity.Test1;
+import com.lab8.engine.entity.AlertdetailHadoop;
+import com.lab8.engine.entity.DravenMetadata;
+import com.lab8.engine.service.AlertdetailHadoopService;
 import com.lab8.engine.service.EsperService;
 import com.lab8.engine.service.Test1Service;
 import lombok.extern.slf4j.Slf4j;
@@ -14,34 +14,54 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
 @Component
 public class EsperListener implements UpdateListener {
+    private static EsperListener esperListener;  // 静态初使化当前类
 
     @Autowired
     private Test1Service test1Service;
 
     @Autowired
     private EsperService esperService;
-
+    @Autowired
+    private AlertdetailHadoopService alertdetailHadoopService;
     @PostConstruct
     public void statr1() {
-        List<Test1> rules = test1Service.queryAll(new Test1());
+        String epsql = "@Name(\"EsperEvent\")select avg(salary) from OrderEventMap.win:length_batch(2)";
+        List<DravenMetadata> rules = test1Service.queryAll(new DravenMetadata());
         rules.forEach(rule ->
-                esperService.addEsperListener(rule.getId(), rule.getEsperSql()));
+                esperService.addEsperListener(rule.getId(), "@Name(\""+rule.getCmd()+"\")"+rule.getEsperSql()));
     }
-
+    @PostConstruct
+    public void init() {
+        esperListener = this;
+    }
     @Override
     public void update(EventBean[] eventBeans, EventBean[] eventBeans1) {
         if (eventBeans != null) {
+            AlertdetailHadoop alertdetailHadoop = AlertdetailHadoop.builder()
+                    .site("sanbox")
+                    .timestamp(eventBeans[0].get("time").toString())
+                    .hostname(eventBeans[0].get("ip").toString())
+                    .alertcontext(eventBeans[0].getUnderlying().toString())
+                    .alertsource(eventBeans[0].get("user").toString())
+                    .alertexecutorid("hdfsAuditLogAlertExecutor")
+                    .build();
+            /*esperListener.alertdetailHadoopService.insert(alertdetailHadoop);*/
+            String eventType =   eventBeans[0].getClass().getSimpleName();
             System.out.println(String.format
-                    ("事件1 匹配成功，匹配到的位置为：%s, 要发送的手机号是：%s,时间：%s,原始内容：%s",
+                    ("匹配成功，匹配到的cmd为：%s, dst为：%s,src为：%s,user为：%s,时间：%s,原始内容：%s,备用：%s",
                             eventBeans[0].get("cmd"),
                             eventBeans[0].get("dst"),
+                            eventBeans[0].get("src"),
+                            eventBeans[0].get("user"),
                             System.currentTimeMillis(),
-                            eventBeans[0].getUnderlying()
+                            eventBeans[0].getUnderlying(),
+                            eventBeans[0].getEventType()
                     ));
         }
     }

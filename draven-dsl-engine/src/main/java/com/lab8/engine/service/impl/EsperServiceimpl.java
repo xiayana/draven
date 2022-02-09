@@ -28,7 +28,8 @@ public class EsperServiceimpl implements EsperService {
             return;
         }
 
-        EPStatement epStatement = epAdministrator.createEPL(esperSql);
+        EPStatement epStatement = epAdministrator.createEPL(esperSql,"test");
+        System.out.println(epStatement.getName());
         epStatement.addListener(new EsperListener());
         epStatement.start();
 
