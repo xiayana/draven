@@ -27,10 +27,9 @@ public class EsperListener implements UpdateListener {
     private AlertdetailHadoopService alertdetailHadoopService;
     @PostConstruct
     public void statr1() {
-        String epsql = "@Name(\"EsperEvent\")select avg(salary) from OrderEventMap.win:length_batch(2)";
         List<DravenMetadata> rules = test1Service.queryAll(new DravenMetadata());
         rules.forEach(rule ->
-                esperService.addEsperListener(rule.getId(), "@Name(\""+rule.getCmd()+"\")"+rule.getEsperSql()));
+                esperService.addEsperListener(rule.getId(), rule.getEsperSql()));
     }
     @PostConstruct
     public void init() {
@@ -46,6 +45,7 @@ public class EsperListener implements UpdateListener {
                     .alertcontext(eventBeans[0].getUnderlying().toString())
                     .alertsource(eventBeans[0].get("user").toString())
                     .alertexecutorid("hdfsAuditLogAlertExecutor")
+                    .policyid(eventBeans[0].get("id").toString())
                     .build();
             /*esperListener.alertdetailHadoopService.insert(alertdetailHadoop);*/
             String eventType =   eventBeans[0].getClass().getSimpleName();
@@ -57,7 +57,7 @@ public class EsperListener implements UpdateListener {
                             eventBeans[0].get("user"),
                             System.currentTimeMillis(),
                             eventBeans[0].getUnderlying(),
-                            eventBeans[0].getEventType()
+                            eventBeans[0].get("id")
                     ));
         }
     }

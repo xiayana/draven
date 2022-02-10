@@ -15,19 +15,28 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="policyId" column="policy_id" jdbcType="VARCHAR"/>
+
+
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="Test1Map">
-        select id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time
+        select id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,policy_id
 
         from sys_strategy
         where id = #{id}
     </select>
+    <!--查询单个-->
+    <select id="queryPid" resultMap="Test1Map">
+        select id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,policy_id
 
+        from sys_strategy
+        where policy_id = #{policyId}
+    </select>
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="Test1Map">
-        select id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time
+        select id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,policy_id
 
         from sys_strategy
         limit #{offset}, #{limit}
@@ -36,7 +45,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="Test1Map">
         select
-        id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time
+        id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,policy_id
 
         from sys_strategy
         <where>
@@ -73,37 +82,40 @@
             <if test="createTime != null">
                 and create_time = #{createTime}
             </if>
+            <if test="policyId != null and policyId != ''">
+                and policy_id = #{policyId}
+            </if>
              and `status` = 1
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time)
-        values (#{allowed}, #{cmd}, #{dst}, #{host}, #{src}, #{timestamp}, #{user}, #{esperSql}, #{updateTime},
-                #{createTime})
+        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,policy_id)
+        values (#{allowed}, #{cmd}, #{dst}, #{host}, #{src}, #{timestamp}, #{user}, #{esperSql}, NOW(),
+                NOW(), #{policyId})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time)
+        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,policy_id)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.allowed}, #{entity.cmd}, #{entity.dst}, #{entity.host}, #{entity.src}, #{entity.timestamp},
-            #{entity.user}, #{entity.esperSql}, #{entity.updateTime}, #{entity.createTime})
+            #{entity.user}, #{entity.esperSql}, #{entity.updateTime}, #{entity.createTime},#{entity.policyId})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time)
+        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,policy_id)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.allowed}, #{entity.cmd}, #{entity.dst}, #{entity.host}, #{entity.src}, #{entity.timestamp},
-            #{entity.user}, #{entity.esperSql}, #{entity.updateTime}, #{entity.createTime})
+            #{entity.user}, #{entity.esperSql}, #{entity.updateTime}, #{entity.createTime}, #{entity.policyId})
         </foreach>
         on duplicate key update
         allowed = values(allowed) , cmd = values(cmd) , dst = values(dst) , host = values(host) , src = values(src) ,
         timestamp = values(timestamp) , user = values(user) , esper_sql = values(esper_sql) , update_time =
-        values(update_time) , create_time = values(create_time)
+        values(update_time) , create_time = values(create_time), policy_id = values(policy_id)
     </insert>
 
     <!--通过主键修改数据-->
@@ -143,6 +155,10 @@
             <if test="status != null">
                 status = #{status},
             </if>
+            <if test="policyId != null and policyId != ''">
+                policy_id = #{policyId},
+            </if>
+
         </set>
         where id = #{id}
     </update>

@@ -27,8 +27,7 @@ public class EsperServiceimpl implements EsperService {
             log.info("esperSql already exist :{}-{}", id, esperSql);
             return;
         }
-
-        EPStatement epStatement = epAdministrator.createEPL(esperSql,"test");
+        EPStatement epStatement = epAdministrator.createEPL(esperSql);
         System.out.println(epStatement.getName());
         epStatement.addListener(new EsperListener());
         epStatement.start();

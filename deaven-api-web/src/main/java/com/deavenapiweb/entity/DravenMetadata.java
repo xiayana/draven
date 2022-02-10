@@ -28,5 +28,7 @@ public class DravenMetadata extends Page  implements Serializable {
     private String esperSql;
     private Date updateTime;
     private Date createTime;
-    private int status;
+    private Integer status;
+    private String policyId;
+
 }

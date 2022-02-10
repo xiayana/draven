@@ -68,4 +68,6 @@ public interface StrategyService {
      * @return List
      */
     List<DravenMetadata> queryAll(DravenMetadata test1);
+
+    DravenMetadata queryPid(String policyId);
 }

@@ -73,5 +73,6 @@ public interface StrategyDao {
      */
     int update(DravenMetadata test1);
 
+    DravenMetadata queryPid(String policyId);
 }
 

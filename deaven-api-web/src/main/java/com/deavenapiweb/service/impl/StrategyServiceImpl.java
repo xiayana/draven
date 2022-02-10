@@ -57,13 +57,38 @@ public class StrategyServiceImpl implements StrategyService {
     /**
      * 新增数据
      *
-     * @param test1 实例对象
+     * @param dravenMetadata 实例对象
      * @return 实例对象
      */
     @Override
-    public DravenMetadata insert(DravenMetadata test1) {
-        this.strategyDao.insert(test1);
-        return test1;
+    public DravenMetadata insert(DravenMetadata dravenMetadata) {
+        StringBuffer sb =new StringBuffer();
+        sb.append("select cmd,dst,user,src,pid,ppid,time,ip,");
+        sb.append("'"+dravenMetadata.getPolicyId()+"' as id ");
+        sb.append("from mobillocaltion  ");
+        sb.append("where 1 = 1 ");
+        if (dravenMetadata !=null){
+            if (null != dravenMetadata.getCmd()  || !dravenMetadata.getCmd().equals("")){
+                sb.append(" and "+dravenMetadata.getCmd()+"");
+            }
+            if (dravenMetadata.getUser() !=null || !dravenMetadata.getUser().equals("")){
+                sb.append(" and "+dravenMetadata.getUser()+"");
+            }
+            if (dravenMetadata.getDst() !=null || !dravenMetadata.getDst().equals("")){
+                sb.append(" and "+dravenMetadata.getDst()+"");
+            }
+            dravenMetadata.setEsperSql(sb.toString());
+            System.out.println(dravenMetadata.getEsperSql());
+        }
+        this.strategyDao.insert(dravenMetadata);
+        if (dravenMetadata.getId() !=null){
+            try {
+                getAddListener(dravenMetadata.getId(),dravenMetadata.getEsperSql());
+            }catch (Exception e){
+                log.error("调用异常 ：" +e.getMessage(),e);
+            }
+        }
+        return dravenMetadata;
     }
     /**
      * 分页查询
@@ -79,12 +104,12 @@ public class StrategyServiceImpl implements StrategyService {
     /**
      * 修改数据
      *
-     * @param test1 实例对象
+     * @param dravenMetadata 实例对象
      * @return 实例对象
      */
     @Override
-    public int update(DravenMetadata test1) {
-        return strategyDao.update(test1);
+    public int update(DravenMetadata dravenMetadata) {
+        return strategyDao.update(dravenMetadata);
     }
 
     /**
@@ -98,18 +123,18 @@ public class StrategyServiceImpl implements StrategyService {
     public int deleteBatch(List<Integer> ids) {
         int i = 0;
         for (Integer id : ids) {
-            DravenMetadata test1 = new DravenMetadata();
-            test1.setId(id);
-            test1.setStatus(0);
-            i += strategyDao.update(test1);
+            DravenMetadata dravenMetadata = new DravenMetadata();
+            dravenMetadata.setId(id);
+            dravenMetadata.setStatus(0);
+            i += strategyDao.update(dravenMetadata);
             if (i != CommonConstants.NUMBER_ZERO){
-                getResources(id);
+                getRemoveListener(id);
             }
         }
 
         return i;
     }
-    public void getResources(Integer id) {
+    public void getRemoveListener(Integer id) {
         try {
             final String url = "http://" + servers +"/esperListener/removeListener?id="+id+"";
             log.info(">>>>>> url: {}, ip: {}, id: {}", url, servers, id);
@@ -120,8 +145,24 @@ public class StrategyServiceImpl implements StrategyService {
         }
 
     }
+    public void getAddListener(Integer id,String sql) {
+        try {
+            final String url = "http://" + servers +"/esperListener/addListener?id="+id+"&sql="+sql+"";
+            log.info(">>>>>> url: {}, ip: {}, id: {}", url, servers, id);
+            String string = OkHttpUtil.getInstance().getData(url);
+            log.info("skipTask>>>>>> response: {}", string);
+        }catch (Exception e){
+            log.error("远程调用异常" + e.getMessage(), e);
+        }
+
+    }
     @Override
-    public List<DravenMetadata> queryAll(DravenMetadata test1) {
-        return strategyDao.queryAll(test1);
+    public List<DravenMetadata> queryAll(DravenMetadata dravenMetadata) {
+        return strategyDao.queryAll(dravenMetadata);
+    }
+
+    @Override
+    public DravenMetadata queryPid(String policyId) {
+        return this.strategyDao.queryPid(policyId);
     }
 }

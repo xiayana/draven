@@ -24,9 +24,10 @@ public class CommonConstants {
     //行程id
     public final static String PARAM_STROKID = "strokeId";
 
-    //真值数据ID列表processedDataIds
-    public final static String PARAM_PROCESSEDDATAIDS = "processedDataIds";
-
+    //名称重复异常
+    public final static String ERROR_DUPLICATENAME = "名称重复";
+    //参数为空
+    public final static String ERROR_PARAMETERNULL = "参数为空";
     //场景id列表sceneIds
     public final static String PARAM_SCENEIDS="sceneDataIds";
 
@@ -92,51 +93,12 @@ public class CommonConstants {
     //redis key过期
     public final static long EXPRIE_TASKINFO = 24 * 3600L;
 
-    //场景提取主任务编号前缀
-    public final static String SCENE_AUTO_TASK = "AUTOSEM";
 
-    //场景提取主任务编号前缀
-    public final static String SCENE_TASK_MAIN = "SEM";
-
-    //场景提取主任务编号单次执行
-    public final static String SCENE_TASK_SIGIN_MAIN = "SIGNSEM";
-
-    //新建行程编号前缀
-    public final static String STROKE_NUMBER = "STORKE";
-
-    //场景提取子任务编号前缀
-    public final static String SCENE_TASK_SUB = "SES";
-
-    //行程评测记录编号
-    public final static String STROKE_EVALUATION_RECODE = "EVASTROKE";
-
-    //场景评测记录编号
-    public final static String SCENE_EVALUATION_RECODE = "EVASCENE";
-
-    //打包记录编号
-    public final static String PACKAGE_RECODE = "PACK";
-
-    //切片记录编号
-    public final static String PICK_RECODE = "PICK";
-
-    //真值处理记录编号
-    public final static String PROCESS_RECODE = "PCE";
-
-    //自动化处理任务编号前缀
-    public final static String AUTO_TASK_PROCESS = "AP";
 
     //执行成功
     public final static String TASK_SUCCESS = "SUCCESS :";
-    //场景提取redis队列名称
-    public final static String SCENE_EXTARCE_QUEUENAME = "queue_scene_extrace";
-    //真值处理redis队列名称
-    public final static String PROCESSED_EXTARCE_QUEUENAME = "processed_extarce_result";
 
-    //场景评测redis队列名称
-    public final static String SCENE_EVALUATION_QUEUENAME = "queue_scene_evaluation";
 
-    //行程评测redis队列名称
-    public final static String STROKE_EVALUATION_QUEUENAME = "queue_stroke_evaluation";
 
     public final static String DEFAULT_USER = "admin";
 
