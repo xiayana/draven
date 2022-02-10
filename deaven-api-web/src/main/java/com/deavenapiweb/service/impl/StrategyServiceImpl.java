@@ -62,24 +62,8 @@ public class StrategyServiceImpl implements StrategyService {
      */
     @Override
     public DravenMetadata insert(DravenMetadata dravenMetadata) {
-        StringBuffer sb =new StringBuffer();
-        sb.append("select cmd,dst,user,src,pid,ppid,time,ip,");
-        sb.append("'"+dravenMetadata.getPolicyId()+"' as id ");
-        sb.append("from mobillocaltion  ");
-        sb.append("where 1 = 1 ");
-        if (dravenMetadata !=null){
-            if (null != dravenMetadata.getCmd()  || !dravenMetadata.getCmd().equals("")){
-                sb.append(" and "+dravenMetadata.getCmd()+"");
-            }
-            if (dravenMetadata.getUser() !=null || !dravenMetadata.getUser().equals("")){
-                sb.append(" and "+dravenMetadata.getUser()+"");
-            }
-            if (dravenMetadata.getDst() !=null || !dravenMetadata.getDst().equals("")){
-                sb.append(" and "+dravenMetadata.getDst()+"");
-            }
-            dravenMetadata.setEsperSql(sb.toString());
-            System.out.println(dravenMetadata.getEsperSql());
-        }
+        dravenMetadata.setEsperSql(dealWith(dravenMetadata));
+        log.info("esperSql:[{}]",dravenMetadata.getEsperSql());
         this.strategyDao.insert(dravenMetadata);
         if (dravenMetadata.getId() !=null){
             try {
@@ -89,6 +73,46 @@ public class StrategyServiceImpl implements StrategyService {
             }
         }
         return dravenMetadata;
+    }
+
+    /**
+     * 将字段处理组合成策略sql
+     * @param dravenMetadata
+     * @return
+     */
+    public String dealWith(DravenMetadata dravenMetadata){
+        StringBuffer sb =new StringBuffer();
+        sb.append("select cmd,dst,user,src,pid,ppid,time,ip,");
+        sb.append("'"+dravenMetadata.getPolicyId()+"' as id ");
+        sb.append("from mobillocaltion  ");
+        sb.append("where 1 = 1 ");
+        if (dravenMetadata !=null) {
+            if (null != dravenMetadata.getCmd() || !dravenMetadata.getCmd().equals("")) {
+                sb.append(" and " + dravenMetadata.getCmd() + "");
+            }
+            if (dravenMetadata.getUser() != null || !dravenMetadata.getUser().equals("")) {
+                sb.append(" and " + dravenMetadata.getUser() + "");
+            }
+            if (dravenMetadata.getDst() != null || !dravenMetadata.getDst().equals("")) {
+                sb.append(" and " + dravenMetadata.getDst() + "");
+            }
+            if (dravenMetadata.getSrc() != null || !dravenMetadata.getSrc().equals("")) {
+                sb.append(" and " + dravenMetadata.getSrc() + "");
+            }
+            if (dravenMetadata.getPid() != null || !dravenMetadata.getPid().equals("")) {
+                sb.append(" and " + dravenMetadata.getPid() + "");
+            }
+            if (dravenMetadata.getPpid() != null || !dravenMetadata.getPpid().equals("")) {
+                sb.append(" and " + dravenMetadata.getPpid() + "");
+            }
+            if (dravenMetadata.getTime() != null || !dravenMetadata.getTime().equals("")) {
+                sb.append(" and " + dravenMetadata.getTime() + "");
+            }
+            if (dravenMetadata.getIp() != null || !dravenMetadata.getIp().equals("")) {
+                sb.append(" and " + dravenMetadata.getIp() + "");
+            }
+        }
+        return sb.toString();
     }
     /**
      * 分页查询
@@ -148,7 +172,7 @@ public class StrategyServiceImpl implements StrategyService {
     public void getAddListener(Integer id,String sql) {
         try {
             final String url = "http://" + servers +"/esperListener/addListener?id="+id+"&sql="+sql+"";
-            log.info(">>>>>> url: {}, ip: {}, id: {}", url, servers, id);
+            log.info(">>>>>> url: {}, ip: {}, id: {}, sql: {}", url, servers, id, sql);
             String string = OkHttpUtil.getInstance().getData(url);
             log.info("skipTask>>>>>> response: {}", string);
         }catch (Exception e){
