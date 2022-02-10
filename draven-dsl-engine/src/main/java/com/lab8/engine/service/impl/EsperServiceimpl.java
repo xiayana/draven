@@ -24,7 +24,7 @@ public class EsperServiceimpl implements EsperService {
     @Override
     public void addEsperListener(int id, String esperSql) {
         if (null != EsperConfig.STATEMENT_MAP.get(id)) {
-            log.info("esperSql already exits :{}-{}", id, esperSql);
+            log.info("esperSql already exist :{}-{}", id, esperSql);
             return;
         }
 
