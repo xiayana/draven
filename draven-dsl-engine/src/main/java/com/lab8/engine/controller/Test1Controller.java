@@ -1,14 +1,14 @@
 package com.lab8.engine.controller;
 
 import com.lab8.engine.entity.DravenMetadata;
-import com.lab8.engine.service.Test1Service;
+import com.lab8.engine.service.StrategyService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * (Test1)表控制层
  *
- * @author makejava
+ * @author xy
  * @since 2022-02-04 18:48:58
  */
 @RestController
@@ -18,7 +18,7 @@ public class Test1Controller {
      * 服务对象
      */
     @Autowired
-    private Test1Service test1Service;
+    private StrategyService test1Service;
 
     /**
      * 通过主键查询单条数据

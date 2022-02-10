@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.3</version>
+        <version>2.5.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.lab8.draven</groupId>
@@ -20,7 +20,7 @@
 
     <modules>
         <module>draven-dsl-engine</module>
-        <module>draven-api</module>
+        <module>deaven-api-web</module>
     </modules>
 
     <dependencyManagement>
@@ -30,6 +30,12 @@
                 <artifactId>draven-engine</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.deaven-api-web</groupId>
+                <artifactId>deaven-api-web</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

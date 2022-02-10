@@ -1,20 +1,17 @@
 package com.lab8.engine.listener;
 
 import com.espertech.esper.client.EventBean;
-import com.espertech.esper.client.EventType;
 import com.espertech.esper.client.UpdateListener;
 import com.lab8.engine.entity.AlertdetailHadoop;
 import com.lab8.engine.entity.DravenMetadata;
 import com.lab8.engine.service.AlertdetailHadoopService;
 import com.lab8.engine.service.EsperService;
-import com.lab8.engine.service.Test1Service;
+import com.lab8.engine.service.StrategyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -23,8 +20,7 @@ public class EsperListener implements UpdateListener {
     private static EsperListener esperListener;  // 静态初使化当前类
 
     @Autowired
-    private Test1Service test1Service;
-
+    private StrategyService test1Service;
     @Autowired
     private EsperService esperService;
     @Autowired

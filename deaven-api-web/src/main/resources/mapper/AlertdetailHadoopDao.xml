@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deavenapiweb.dao.AlertdetailHadoopDao">
+
+    <resultMap type="com.deavenapiweb.entity.AlertdetailHadoop" id="AlertdetailHadoopMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="timestamp" column="timestamp" jdbcType="VARCHAR"/>
+        <result property="site" column="site" jdbcType="VARCHAR"/>
+        <result property="application" column="application" jdbcType="VARCHAR"/>
+        <result property="hostname" column="hostname" jdbcType="VARCHAR"/>
+        <result property="policyid" column="policyid" jdbcType="VARCHAR"/>
+        <result property="alertsource" column="alertsource" jdbcType="VARCHAR"/>
+        <result property="sourcestreams" column="sourcestreams" jdbcType="VARCHAR"/>
+        <result property="alertexecutorid" column="alertexecutorid" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="remediationid" column="remediationid" jdbcType="VARCHAR"/>
+        <result property="remediationcallback" column="remediationcallback" jdbcType="VARCHAR"/>
+        <result property="alertcontext" column="alertcontext" jdbcType="VARCHAR"/>
+        <result property="streamid" column="streamid" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AlertdetailHadoopMap">
+        select
+          id, timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid, create_time, update_time
+        from alertdetail_hadoop
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AlertdetailHadoopMap">
+        select
+          id, timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid, create_time, update_time
+        from alertdetail_hadoop
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="timestamp != null and timestamp != ''">
+                and timestamp = #{timestamp}
+            </if>
+            <if test="site != null and site != ''">
+                and site = #{site}
+            </if>
+            <if test="application != null and application != ''">
+                and application = #{application}
+            </if>
+            <if test="hostname != null and hostname != ''">
+                and hostname = #{hostname}
+            </if>
+            <if test="policyid != null and policyid != ''">
+                and policyid = #{policyid}
+            </if>
+            <if test="alertsource != null and alertsource != ''">
+                and alertsource = #{alertsource}
+            </if>
+            <if test="sourcestreams != null and sourcestreams != ''">
+                and sourcestreams = #{sourcestreams}
+            </if>
+            <if test="alertexecutorid != null and alertexecutorid != ''">
+                and alertexecutorid = #{alertexecutorid}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="remediationid != null and remediationid != ''">
+                and remediationid = #{remediationid}
+            </if>
+            <if test="remediationcallback != null and remediationcallback != ''">
+                and remediationcallback = #{remediationcallback}
+            </if>
+            <if test="alertcontext != null and alertcontext != ''">
+                and alertcontext = #{alertcontext}
+            </if>
+            <if test="streamid != null and streamid != ''">
+                and streamid = #{streamid}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from alertdetail_hadoop
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="timestamp != null and timestamp != ''">
+                and timestamp = #{timestamp}
+            </if>
+            <if test="site != null and site != ''">
+                and site = #{site}
+            </if>
+            <if test="application != null and application != ''">
+                and application = #{application}
+            </if>
+            <if test="hostname != null and hostname != ''">
+                and hostname = #{hostname}
+            </if>
+            <if test="policyid != null and policyid != ''">
+                and policyid = #{policyid}
+            </if>
+            <if test="alertsource != null and alertsource != ''">
+                and alertsource = #{alertsource}
+            </if>
+            <if test="sourcestreams != null and sourcestreams != ''">
+                and sourcestreams = #{sourcestreams}
+            </if>
+            <if test="alertexecutorid != null and alertexecutorid != ''">
+                and alertexecutorid = #{alertexecutorid}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="remediationid != null and remediationid != ''">
+                and remediationid = #{remediationid}
+            </if>
+            <if test="remediationcallback != null and remediationcallback != ''">
+                and remediationcallback = #{remediationcallback}
+            </if>
+            <if test="alertcontext != null and alertcontext != ''">
+                and alertcontext = #{alertcontext}
+            </if>
+            <if test="streamid != null and streamid != ''">
+                and streamid = #{streamid}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into alertdetail_hadoop(timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid, create_time, update_time)
+        values (#{timestamp}, #{site}, #{application}, #{hostname}, #{policyid}, #{alertsource}, #{sourcestreams}, #{alertexecutorid}, #{description}, #{remediationid}, #{remediationcallback}, #{alertcontext}, #{streamid}, #{createTime}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into alertdetail_hadoop(timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid, create_time, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.timestamp}, #{entity.site}, #{entity.application}, #{entity.hostname}, #{entity.policyid}, #{entity.alertsource}, #{entity.sourcestreams}, #{entity.alertexecutorid}, #{entity.description}, #{entity.remediationid}, #{entity.remediationcallback}, #{entity.alertcontext}, #{entity.streamid}, #{entity.createTime}, #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into alertdetail_hadoop(timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid, create_time, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.timestamp}, #{entity.site}, #{entity.application}, #{entity.hostname}, #{entity.policyid}, #{entity.alertsource}, #{entity.sourcestreams}, #{entity.alertexecutorid}, #{entity.description}, #{entity.remediationid}, #{entity.remediationcallback}, #{entity.alertcontext}, #{entity.streamid}, #{entity.createTime}, #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        timestamp = values(timestamp),
+        site = values(site),
+        application = values(application),
+        hostname = values(hostname),
+        policyid = values(policyid),
+        alertsource = values(alertsource),
+        sourcestreams = values(sourcestreams),
+        alertexecutorid = values(alertexecutorid),
+        description = values(description),
+        remediationid = values(remediationid),
+        remediationcallback = values(remediationcallback),
+        alertcontext = values(alertcontext),
+        streamid = values(streamid),
+        create_time = values(create_time),
+        update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update alertdetail_hadoop
+        <set>
+            <if test="timestamp != null and timestamp != ''">
+                timestamp = #{timestamp},
+            </if>
+            <if test="site != null and site != ''">
+                site = #{site},
+            </if>
+            <if test="application != null and application != ''">
+                application = #{application},
+            </if>
+            <if test="hostname != null and hostname != ''">
+                hostname = #{hostname},
+            </if>
+            <if test="policyid != null and policyid != ''">
+                policyid = #{policyid},
+            </if>
+            <if test="alertsource != null and alertsource != ''">
+                alertsource = #{alertsource},
+            </if>
+            <if test="sourcestreams != null and sourcestreams != ''">
+                sourcestreams = #{sourcestreams},
+            </if>
+            <if test="alertexecutorid != null and alertexecutorid != ''">
+                alertexecutorid = #{alertexecutorid},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="remediationid != null and remediationid != ''">
+                remediationid = #{remediationid},
+            </if>
+            <if test="remediationcallback != null and remediationcallback != ''">
+                remediationcallback = #{remediationcallback},
+            </if>
+            <if test="alertcontext != null and alertcontext != ''">
+                alertcontext = #{alertcontext},
+            </if>
+            <if test="streamid != null and streamid != ''">
+                streamid = #{streamid},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from alertdetail_hadoop where id = #{id}
+    </delete>
+
+</mapper>
+

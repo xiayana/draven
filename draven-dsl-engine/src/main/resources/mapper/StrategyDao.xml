@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lab8.engine.dao.Test1Dao">
+<mapper namespace="com.lab8.engine.dao.StrategyDao">
 
     <resultMap type="com.lab8.engine.entity.DravenMetadata" id="Test1Map">
         <result property="id" column="id" jdbcType="INTEGER"/>
@@ -21,7 +21,7 @@
     <select id="queryById" resultMap="Test1Map">
         select id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time
 
-        from test1
+        from sys_strategy
         where id = #{id}
     </select>
 
@@ -29,7 +29,7 @@
     <select id="queryAllByLimit" resultMap="Test1Map">
         select id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time
 
-        from test1
+        from sys_strategy
         limit #{offset}, #{limit}
     </select>
 
@@ -38,7 +38,7 @@
         select
         id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time
 
-        from test1
+        from sys_strategy
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -79,13 +79,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into test1(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time)
+        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time)
         values (#{allowed}, #{cmd}, #{dst}, #{host}, #{src}, #{timestamp}, #{user}, #{esperSql}, #{updateTime},
                 #{createTime})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into test1(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time)
+        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.allowed}, #{entity.cmd}, #{entity.dst}, #{entity.host}, #{entity.src}, #{entity.timestamp},
@@ -94,7 +94,7 @@
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into test1(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time)
+        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.allowed}, #{entity.cmd}, #{entity.dst}, #{entity.host}, #{entity.src}, #{entity.timestamp},
@@ -108,7 +108,7 @@
 
     <!--通过主键修改数据-->
     <update id="update">
-        update test1
+        update sys_strategy
         <set>
             <if test="allowed != null and allowed != ''">
                 allowed = #{allowed},

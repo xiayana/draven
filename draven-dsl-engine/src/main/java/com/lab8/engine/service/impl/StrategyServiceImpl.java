@@ -1,8 +1,8 @@
 package com.lab8.engine.service.impl;
 
 import com.lab8.engine.entity.DravenMetadata;
-import com.lab8.engine.dao.Test1Dao;
-import com.lab8.engine.service.Test1Service;
+import com.lab8.engine.dao.StrategyDao;
+import com.lab8.engine.service.StrategyService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +17,9 @@ import java.util.List;
  * @since 2022-02-04 18:49:03
  */
 @Service
-public class Test1ServiceImpl implements Test1Service {
+public class StrategyServiceImpl implements StrategyService {
     @Autowired
-    private Test1Dao test1Dao;
+    private StrategyDao test1Dao;
 
     /**
      * 通过ID查询单条数据

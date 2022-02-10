@@ -8,11 +8,11 @@ import java.util.List;
 /**
  * (Test1)表数据库访问层
  *
- * @author makejava
+ * @author xy
  * @since 2022-02-04 18:49:00
  */
 @Mapper
-public interface Test1Dao {
+public interface StrategyDao {
 
     /**
      * 通过ID查询单条数据

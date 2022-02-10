@@ -1,6 +1,9 @@
-package com.lab8.engine.service;
+package com.deavenapiweb.service;
 
-import com.lab8.engine.entity.DravenMetadata;
+
+import com.deavenapiweb.entity.AlertdetailHadoop;
+import com.deavenapiweb.entity.DravenMetadata;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -10,7 +13,7 @@ import java.util.List;
  * @author makejava
  * @since 2022-02-04 18:49:02
  */
-public interface Test1Service {
+public interface StrategyService {
 
     /**
      * 通过ID查询单条数据
@@ -53,7 +56,12 @@ public interface Test1Service {
      * @return
      */
     int deleteBatch(List<Integer> ids);
-
+    /**
+     * 分页查询
+     * @param dravenMetadata 实例对象
+     * @return 分页对象
+     */
+    PageInfo<DravenMetadata> pageuery(DravenMetadata dravenMetadata);
     /**
      * 查询所有规则
      *
