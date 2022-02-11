@@ -9,6 +9,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,7 +21,7 @@ import java.util.List;
  */
 @Service
 public class AlertdetailHadoopServiceImpl implements AlertdetailHadoopService {
-    @Autowired
+    @Resource
     private AlertdetailHadoopDao alertdetailHadoopDao;
 
     /**
@@ -33,17 +35,11 @@ public class AlertdetailHadoopServiceImpl implements AlertdetailHadoopService {
         return this.alertdetailHadoopDao.queryById(id);
     }
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
     @Override
     public List<AlertdetailHadoop> queryAllByLimit(int offset, int limit) {
-        return this.alertdetailHadoopDao.queryAllByLimit(offset, limit);
+        return null;
     }
+
 
     /**
      * 分页查询

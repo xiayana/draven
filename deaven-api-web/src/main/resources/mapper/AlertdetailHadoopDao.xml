@@ -30,9 +30,9 @@
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="AlertdetailHadoopMap">
+    <select id="queryAll" resultMap="AlertdetailHadoopMap">
         select
-          id, timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid, create_time, update_time
+        id, timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid, create_time, update_time
         from alertdetail_hadoop
         <where>
             <if test="id != null">
@@ -84,7 +84,7 @@
                 and update_time = #{updateTime}
             </if>
         </where>
-        limit #{pageable.offset}, #{pageable.pageSize}
+        order by create_time desc
     </select>
 
     <!--统计总行数-->

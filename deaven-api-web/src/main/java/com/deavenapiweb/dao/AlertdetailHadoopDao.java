@@ -1,15 +1,15 @@
 package com.deavenapiweb.dao;
 
 import com.deavenapiweb.entity.AlertdetailHadoop;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
  * Ueba告警日志(AlertdetailHadoop)表数据库访问层
  *
- * @author makejava
- * @since 2022-02-09 11:29:26
+ * @author xy
+ * @since 2022-02-10 18:15:19
  */
 @Mapper
 public interface AlertdetailHadoopDao {
@@ -22,23 +22,14 @@ public interface AlertdetailHadoopDao {
      */
     AlertdetailHadoop queryById(Long id);
 
-    /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<AlertdetailHadoop> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
-
 
     /**
-     * 通过实体作为筛选条件查询
+     * 统计总行数
      *
-     * @param alertdetailHadoop 实例对象
-     * @return 对象列表
+     * @param alertdetailHadoop 查询条件
+     * @return 总行数
      */
-    List<AlertdetailHadoop> queryAll(AlertdetailHadoop alertdetailHadoop);
+    long count(AlertdetailHadoop alertdetailHadoop);
 
     /**
      * 新增数据
@@ -61,6 +52,7 @@ public interface AlertdetailHadoopDao {
      *
      * @param entities List<AlertdetailHadoop> 实例对象列表
      * @return 影响行数
+     * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
      */
     int insertOrUpdateBatch(@Param("entities") List<AlertdetailHadoop> entities);
 
@@ -72,5 +64,14 @@ public interface AlertdetailHadoopDao {
      */
     int update(AlertdetailHadoop alertdetailHadoop);
 
+    /**
+     * 通过主键删除数据
+     *
+     * @param id 主键
+     * @return 影响行数
+     */
+    int deleteById(Long id);
+
+    List<AlertdetailHadoop> queryAll(AlertdetailHadoop alertdetailHadoop);
 }
 

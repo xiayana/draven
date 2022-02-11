@@ -155,7 +155,6 @@ public class StrategyServiceImpl implements StrategyService {
                 getRemoveListener(id);
             }
         }
-
         return i;
     }
     public void getRemoveListener(Integer id) {
