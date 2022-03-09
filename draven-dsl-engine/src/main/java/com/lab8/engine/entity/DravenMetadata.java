@@ -19,14 +19,17 @@ public class DravenMetadata implements Serializable {
     private String dst;
     private String host;
     private String src;
-    private Date timestamp;
+    private Integer timestamp;
     private String user;
     private String pid;
     private String ppid;
     private String time;
     private String ip;
+    private String policyId;
     private String esperSql;
     private Date updateTime;
     private Date createTime;
+    private String description;
+    private String ppname;
 
 }

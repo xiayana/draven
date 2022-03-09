@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
- * @author jiangzihao@kanzhun.com
+ * @author xy
  */
 @Slf4j
 @Service

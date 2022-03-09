@@ -11,7 +11,9 @@
         <result property="src" column="src" jdbcType="VARCHAR"/>
         <result property="timestamp" column="timestamp" jdbcType="VARCHAR"/>
         <result property="user" column="user" jdbcType="VARCHAR"/>
+        <result property="policyId" column="policy_id" jdbcType="VARCHAR"/>
         <result property="esperSql" column="esper_sql" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
@@ -19,7 +21,7 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="Test1Map">
-        select id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time
+        select id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,policy_id,description
 
         from sys_strategy
         where id = #{id}
@@ -27,7 +29,7 @@
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="Test1Map">
-        select id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time
+        select id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,policy_id,description
 
         from sys_strategy
         limit #{offset}, #{limit}
@@ -36,7 +38,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="Test1Map">
         select
-        id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time
+        id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,policy_id,description
 
         from sys_strategy
         <where>
@@ -79,31 +81,31 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time)
+        insert into sys_strategy(id,allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,policy_id,description)
         values (#{allowed}, #{cmd}, #{dst}, #{host}, #{src}, #{timestamp}, #{user}, #{esperSql}, #{updateTime},
-                #{createTime})
+                #{createTime},#{policyId},#{description})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time)
+        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,description)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.allowed}, #{entity.cmd}, #{entity.dst}, #{entity.host}, #{entity.src}, #{entity.timestamp},
-            #{entity.user}, #{entity.esperSql}, #{entity.updateTime}, #{entity.createTime})
+            #{entity.user}, #{entity.esperSql}, #{entity.updateTime}, #{entity.createTime},#{entity.description})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time)
+        insert into sys_strategy(allowed, cmd, dst, host, src, timestamp, user, esper_sql, update_time, create_time,description)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.allowed}, #{entity.cmd}, #{entity.dst}, #{entity.host}, #{entity.src}, #{entity.timestamp},
-            #{entity.user}, #{entity.esperSql}, #{entity.updateTime}, #{entity.createTime})
+            #{entity.user}, #{entity.esperSql}, #{entity.updateTime}, #{entity.createTime}, #{entity.description})
         </foreach>
         on duplicate key update
         allowed = values(allowed) , cmd = values(cmd) , dst = values(dst) , host = values(host) , src = values(src) ,
         timestamp = values(timestamp) , user = values(user) , esper_sql = values(esper_sql) , update_time =
-        values(update_time) , create_time = values(create_time)
+        values(update_time) , create_time = values(create_time),description = values(description)
     </insert>
 
     <!--通过主键修改数据-->
@@ -134,7 +136,7 @@
             <if test="esperSql != null and esperSql != ''">
                 esper_sql = #{esperSql},
             </if>
-            <if test="updateTime != null">
+            <if test="updateTime != null">policy_id
                 update_time = #{updateTime},
             </if>
             <if test="createTime != null">
@@ -142,6 +144,12 @@
             </if>
             <if test="isValid != null">
                 is_valid = #{isValid},
+            </if>
+            <if test="policyId != null">
+                policy_id = #{policyId},
+            </if>
+            <if test="description != null">
+                description = #{description},
             </if>
         </set>
         where id = #{id}

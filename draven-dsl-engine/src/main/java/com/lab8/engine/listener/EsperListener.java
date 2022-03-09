@@ -40,12 +40,12 @@ public class EsperListener implements UpdateListener {
         if (eventBeans != null) {
             AlertdetailHadoop alertdetailHadoop = AlertdetailHadoop.builder()
                     .site("sanbox")
-                    .timestamp(eventBeans[0].get("time").toString())
+                    .timestamp(eventBeans[0].get("timestamp").toString())
                     .hostname(eventBeans[0].get("ip").toString())
                     .alertcontext(eventBeans[0].getUnderlying().toString())
                     .alertsource(eventBeans[0].get("user").toString())
                     .alertexecutorid("hdfsAuditLogAlertExecutor")
-                    .policyid(eventBeans[0].get("id").toString())
+                    .policyid(eventBeans[0].get("pilicy_id").toString())
                     .build();
             /*esperListener.alertdetailHadoopService.insert(alertdetailHadoop);*/
             String eventType =   eventBeans[0].getClass().getSimpleName();
@@ -57,7 +57,7 @@ public class EsperListener implements UpdateListener {
                             eventBeans[0].get("user"),
                             System.currentTimeMillis(),
                             eventBeans[0].getUnderlying(),
-                            eventBeans[0].get("id")
+                            eventBeans[0].get("pilicy_id")
                     ));
         }
     }
