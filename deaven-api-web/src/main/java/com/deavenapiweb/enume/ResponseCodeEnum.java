@@ -3,7 +3,7 @@ package com.deavenapiweb.enume;
 /**
  * 该类表示业务错误
  *
- * @author caryfankai
+ * @author xy
  * @date 2021-09-17
  */
 public enum ResponseCodeEnum {

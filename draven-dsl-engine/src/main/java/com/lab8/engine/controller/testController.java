@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 
 /**
- * @author jiangzihao@kanzhun.com
+ * @author xy
  */
 @RestController
 public class testController {

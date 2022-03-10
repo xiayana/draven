@@ -1,7 +1,7 @@
 package com.lab8.engine.service;
 
 /**
- * @author jiangzihao@kanzhun.com
+ * @author xy
  */
 public interface EsperService {
 

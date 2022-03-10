@@ -3,7 +3,7 @@ package com.deavenapiweb.common;
 
 /**
  * 响应编码
- * @author v_merzhang
+ * @author xy
  * @since 2021/6/23 17:16
  */
 public interface ResponseCode {
