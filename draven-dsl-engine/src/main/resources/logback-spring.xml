@@ -13,11 +13,11 @@
 
     <!-- 按照每天生成日志文件 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/boss_info.log</file><!-- 当前的日志文件存放路径 -->
+        <file>${LOG_HOME}/draven_info.log</file><!-- 当前的日志文件存放路径 -->
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_HOME}/boss_info.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/draven_info.log.%d{yyyy-MM-dd}</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>7</MaxHistory>
         </rollingPolicy>
@@ -29,10 +29,10 @@
 
     <!--错误日志统一输出到这里-->
     <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/boss_warn.log</file><!-- 当前的日志文件存放路径 -->
+        <file>${LOG_HOME}/draven_warn.log</file><!-- 当前的日志文件存放路径 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_HOME}/boss_warn.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/draven_warn.log.%d{yyyy-MM-dd}</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>7</MaxHistory>
         </rollingPolicy>
@@ -50,10 +50,10 @@
 
     <!--错误日志统一输出到这里-->
     <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/boss_error.log</file><!-- 当前的日志文件存放路径 -->
+        <file>${LOG_HOME}/draven_error.log</file><!-- 当前的日志文件存放路径 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_HOME}/boss_error.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/draven_error.log.%d{yyyy-MM-dd}</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>7</MaxHistory>
         </rollingPolicy>

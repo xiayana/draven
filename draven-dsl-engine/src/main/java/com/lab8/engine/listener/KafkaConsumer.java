@@ -25,6 +25,7 @@ public class KafkaConsumer {
             EPRuntime epRuntime = epServiceProvider.getEPRuntime();
             Map<String,String> json = JSONObject.parseObject(records, Map.class);
             json.put("allowed",json.remove("flag"));
+            json.put("host",json.get("ip"));
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date dateStart = format.parse(json.get("time"));
             json.put("timestamp",dateStart.getTime() / 1000+"000");

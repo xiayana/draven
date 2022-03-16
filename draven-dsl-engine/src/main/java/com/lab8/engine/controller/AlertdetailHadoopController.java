@@ -47,9 +47,4 @@ public class AlertdetailHadoopController {
     public AlertdetailHadoop insert(@RequestBody AlertdetailHadoop alertdetailHadoop) {
         return this.alertdetailHadoopService.insert(alertdetailHadoop);
     }
-
-
-
-
-
 }
