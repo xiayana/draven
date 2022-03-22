@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,5 +84,10 @@ public class AlertdetailHadoopServiceImpl implements AlertdetailHadoopService {
             i += alertdetailHadoopDao.update(alertdetailHadoop);
         }
         return i;
+    }
+
+    @Override
+    public Date selectCreateTimeDesc(AlertdetailHadoop alertdetailHadoop) {
+        return alertdetailHadoopDao.selectCreateTimeDesc(alertdetailHadoop.getPolicyid());
     }
 }

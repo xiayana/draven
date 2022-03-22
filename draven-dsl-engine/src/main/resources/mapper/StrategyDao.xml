@@ -9,7 +9,7 @@
         <result property="dst" column="dst" jdbcType="VARCHAR"/>
         <result property="host" column="host" jdbcType="VARCHAR"/>
         <result property="src" column="src" jdbcType="VARCHAR"/>
-        <result property="timestamp" column="timestamp" jdbcType="VARCHAR"/>
+        <result property="timestampStr" column="timestamp" jdbcType="VARCHAR"/>
         <result property="user" column="user" jdbcType="VARCHAR"/>
         <result property="policyId" column="policy_id" jdbcType="VARCHAR"/>
         <result property="esperSql" column="esper_sql" jdbcType="VARCHAR"/>

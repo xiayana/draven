@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class PersonEvent {
     private Integer id;
-    private String name;
-    private String number;
+    private String sql;
+    private String uuid;
 }

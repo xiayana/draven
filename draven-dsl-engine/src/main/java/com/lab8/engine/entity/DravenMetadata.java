@@ -20,6 +20,7 @@ public class DravenMetadata implements Serializable {
     private String host;
     private String src;
     private Integer timestamp;
+    private String timestampStr;
     private String user;
     private String pid;
     private String ppid;

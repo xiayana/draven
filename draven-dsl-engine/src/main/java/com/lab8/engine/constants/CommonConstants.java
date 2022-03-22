@@ -21,8 +21,6 @@ public class CommonConstants {
     //逗号
     public final static String SYMBOL_COMMA = ",";
 
-    //行程id
-    public final static String PARAM_STROKID = "strokeId";
 
     //名称重复异常
     public final static String ERROR_DUPLICATENAME = "名称重复";
@@ -68,7 +66,10 @@ public class CommonConstants {
 
     //数字10
     public final static int NUMBER_TEN=10;
-
+    //数字60
+    public final static int NUMBER_SIXTY=60;
+    //数字一千
+    public final static int NUMBER_ONE_THOUSAND=1000;
     //数字三千
     public final static int NUMBER_THREE_THOUSAND=3000;
     //字符串1
@@ -106,7 +107,7 @@ public class CommonConstants {
 
     public final static String DEFAULT_EMPTY_FLAG="empty";
 
-    public final static String STRING_CSV_FILE_DIR="csv";
+    public final static String ESPER_QUEUENAME="esper_add_delete";
 
     public final static String STRING_PYTHON_FILE_DIR="py";
 }

@@ -3,6 +3,8 @@ package com.lab8.engine.dao;
 import com.lab8.engine.entity.AlertdetailHadoop;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -72,5 +74,6 @@ public interface AlertdetailHadoopDao {
      */
     int update(AlertdetailHadoop alertdetailHadoop);
 
+    Date selectCreateTimeDesc(@Param("policyid") String policyid);
 }
 

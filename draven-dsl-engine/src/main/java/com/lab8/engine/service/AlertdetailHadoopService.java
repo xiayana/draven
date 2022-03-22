@@ -1,6 +1,8 @@
 package com.lab8.engine.service;
 
 import com.lab8.engine.entity.AlertdetailHadoop;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,4 +53,6 @@ public interface AlertdetailHadoopService {
      * @return
      */
     int deleteBatch(List<Integer> ids);
+
+    Date selectCreateTimeDesc(AlertdetailHadoop alertdetailHadoop);
 }

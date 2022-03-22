@@ -38,6 +38,9 @@
         from alertdetail_hadoop
         limit #{offset}, #{limit}
     </select>
+    <select id="selectCreateTimeDesc" resultType="java.util.Date" parameterType="java.lang.String">
+        SELECT create_time FROM alertdetail_hadoop  where policyid =  #{policyid} order by create_time desc limit 1;
+    </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="AlertdetailHadoopMap">
