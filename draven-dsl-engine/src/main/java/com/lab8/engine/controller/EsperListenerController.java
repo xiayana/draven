@@ -41,14 +41,8 @@ public class EsperListenerController {
             return resultData;
         }
         personEvent.setUuid(UUID.randomUUID().toString());
-        stringRedisTemplate.convertAndSend("chat", JSONObject.toJSONString(personEvent));
-      /*  boolean result = redisQueueSender.sendMsg(CommonConstants.ESPER_QUEUENAME, message);
-        if ( result == false) {
-            resultData.setMsg(ResponseCodeEnum.ERROR_DATA_FORMAT.getMessage());
-            resultData.setCode(ResponseCodeEnum.ERROR_DATA_FORMAT.getCode());
-            return resultData;
-        }*/
-        System.out.println("主线程休眠1秒");
+        stringRedisTemplate.convertAndSend(CommonConstants.ESPER_QUEUENAME, JSONObject.toJSONString(personEvent));
+        log.info("The main thread sleeps for 1 second");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -61,7 +55,6 @@ public class EsperListenerController {
             resultData.setCode(ResponseCodeEnum.ERROR_DATA_FORMAT.getCode());
             resultData.setMsg(list.get(0).getMsg());
         }
-
         log.info(">>>>>> successSQL:ID= {}, SQL= {}", personEvent.getId(), personEvent.getSql());
         return resultData;
     }
@@ -74,29 +67,14 @@ public class EsperListenerController {
             resultData.setMsg(ResponseCodeEnum.ERROR_DATA_NULL.getMessage());
             return resultData;
         }
-        BaseRedisMessage<PersonEvent> messageObj = new BaseRedisMessage<PersonEvent>();
-        messageObj.setMsgId(UUID.randomUUID().toString());
-        messageObj.setMsgSendTime(System.currentTimeMillis());
-        messageObj.setSendRedisMessageType(SendRedisMessageTypeEnum.Esper_DELETE);
-        messageObj.setMsgDataJson(JSONObject.toJSONString(personEvent));
-        String message = JSON.toJSONString(messageObj);
-        boolean result = redisQueueSender.sendMsg(CommonConstants.ESPER_QUEUENAME, message);
-        if ( result == false) {
-            resultData.setMsg(ResponseCodeEnum.ERROR_DATA_FORMAT.getMessage());
-            resultData.setCode(ResponseCodeEnum.ERROR_DATA_FORMAT.getCode());
-            return resultData;
-        }
+        personEvent.setSql("");
+        personEvent.setUuid(UUID.randomUUID().toString());
+        stringRedisTemplate.convertAndSend(CommonConstants.ESPER_QUEUENAME, JSONObject.toJSONString(personEvent));
         return resultData;
     }
     @GetMapping("/addMetaData")
     public ResultData addMetaData(String Name) {
         ResultData resultData = new ResultData();
-       /* if (id == null) {
-            resultData.setCode(ResponseCodeEnum.ERROR_DATA_NULL.getCode());
-            resultData.setMsg(ResponseCodeEnum.ERROR_DATA_NULL.getMessage());
-            return resultData;
-        }
-        esperService.removeEsperListener(Integer.valueOf(id));*/
         return resultData;
     }
 }

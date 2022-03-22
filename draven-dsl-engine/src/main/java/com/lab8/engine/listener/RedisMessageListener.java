@@ -1,5 +1,6 @@
 package com.lab8.engine.listener;
 
+import com.lab8.engine.constants.CommonConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -24,7 +25,6 @@ public class RedisMessageListener {
      * @param listenerAdapter
      * @return
      */
-
     @Bean
     RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
                                             MessageListenerAdapter listenerAdapter) {
@@ -32,7 +32,7 @@ public class RedisMessageListener {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         //订阅了一个叫chat 的通道
-        container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
+        container.addMessageListener(listenerAdapter, new PatternTopic(CommonConstants.ESPER_QUEUENAME));
         //这个container 可以添加多个 messageListener
         //container.addMessageListener(listenerAdapter, new PatternTopic("这里是监听的通道的名字"));
         return container;

@@ -58,6 +58,7 @@ public class Receiver {
                 log.error("processEsperAddMsg error,msg:[{}]",JSON.toJSONString(personEvent),e);
             }
         }
-        log.info("Received <" + message + ">");
+        log.info("Message processing completed!!");
+       // log.info("Received <" + message + ">");
     }
 }
