@@ -152,6 +152,9 @@ public class RedisUtil {
     public boolean setNxEx(String key, String value, long time) {
         return redisTemplate.opsForValue().setIfAbsent(key, value, time, TimeUnit.SECONDS);
     }
+    public boolean setNxExMin(String key, String value, long time) {
+        return redisTemplate.opsForValue().setIfAbsent(key, value, time, TimeUnit.MINUTES);
+    }
     // ================================Map=================================
 
     /**

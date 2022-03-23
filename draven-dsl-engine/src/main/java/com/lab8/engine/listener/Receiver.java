@@ -1,8 +1,8 @@
 package com.lab8.engine.listener;
 
 /**
- * @Author : JCccc
- * @CreateTime : 2019-1-2
+ * @Author : xy
+ * @CreateTime : 2022-03-23 11:58:35
  * @Description :
  * @Point: Keep a good mood
  **/
@@ -15,6 +15,7 @@ import com.lab8.engine.entity.PersonEvent;
 import com.lab8.engine.entity.ResultData;
 import com.lab8.engine.service.ErrorLogService;
 import com.lab8.engine.service.EsperService;
+import com.lab8.engine.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,8 @@ public class Receiver {
     private EsperService esperService;
     @Autowired
     private ErrorLogService errorLogService;
+    @Autowired
+    private RedisUtil redisUtil;
     /**
      * 接收到消息的方法，message就是指从主题获取的消息，主题配置在RedisMessageListener配置类做配置
      * @param message
@@ -44,13 +47,15 @@ public class Receiver {
             try {
                 resultData  = esperService.addEsperListener(personEvent.getId(), personEvent.getSql());
                 if(resultData.getCode() != CommonConstants.NUMBER_ZERO){
-                    ErrorLog errorLog = new ErrorLog();
-                    errorLog.setNumberUuid(personEvent.getUuid());
-                    List<ErrorLog> list = errorLogService.queryAll(errorLog);
-                    if(list.size() == CommonConstants.NUMBER_ZERO){
+                    boolean b = redisUtil.setNxEx(personEvent.getUuid(),personEvent.getUuid(),50);
+                    if(b){
+                        ErrorLog errorLog = new ErrorLog();
+                        errorLog.setNumberUuid(personEvent.getUuid());
                         errorLog.setMsg(resultData.getMsg());
                         errorLogService.insert(errorLog);
-                        log.info("为空，开始写入-");
+                        log.info("errorLog strategyInsert success !!");
+                    }else{
+                        log.info("errorLog strategyInsert setNxExFail !!");
                     }
                 }
                 log.info("processEsperAddMsg:[{}]",JSON.toJSONString(personEvent));

@@ -5,9 +5,11 @@ import com.espertech.esper.client.UpdateListener;
 import com.lab8.engine.constants.CommonConstants;
 import com.lab8.engine.entity.AlertdetailHadoop;
 import com.lab8.engine.entity.DravenMetadata;
+import com.lab8.engine.entity.ErrorLog;
 import com.lab8.engine.service.AlertdetailHadoopService;
 import com.lab8.engine.service.EsperService;
 import com.lab8.engine.service.StrategyService;
+import com.lab8.engine.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,7 +31,8 @@ public class EsperListener implements UpdateListener {
     private EsperService esperService;
     @Autowired
     private AlertdetailHadoopService alertdetailHadoopService;
-
+    @Autowired
+    private RedisUtil redisUtil;
     @PostConstruct
     public void statr1() {
         List<DravenMetadata> rules = test1Service.queryAll(new DravenMetadata());
@@ -56,7 +59,13 @@ public class EsperListener implements UpdateListener {
                     .build();
             String time = (String) eventBeans[CommonConstants.NUMBER_ZERO].get("time_reweight");//该策略需要去重的时间
             if (Integer.valueOf(time) > CommonConstants.NUMBER_ZERO) {
-                Date date = esperListener.alertdetailHadoopService.selectCreateTimeDesc(alertdetailHadoop);
+                boolean b = esperListener.redisUtil.setNxExMin(eventBeans[CommonConstants.NUMBER_ZERO].get("pilicy_id").toString()
+                        ,eventBeans[CommonConstants.NUMBER_ZERO].get("pilicy_id").toString(),Long.valueOf(time));
+                if(b){
+                    esperListener.alertdetailHadoopService.insert(alertdetailHadoop);
+                    log.info("esperResult insert success !!");
+                }
+              /*  Date date = esperListener.alertdetailHadoopService.selectCreateTimeDesc(alertdetailHadoop);
                 if (date != null) {
                     cal.setTime(date);
                     long cTime = Calendar.getInstance().getTimeInMillis() - cal.getTimeInMillis();
@@ -66,9 +75,10 @@ public class EsperListener implements UpdateListener {
                     }
                 } else {
                     esperListener.alertdetailHadoopService.insert(alertdetailHadoop);
-                }
+                }*/
             } else {
                 esperListener.alertdetailHadoopService.insert(alertdetailHadoop);
+                log.info("esperResult insert success !!");
             }
             System.out.println(String.format
                     ("匹配成功，匹配到的cmd为：%s, dst为：%s,src为：%s,user为：%s,时间：%s,原始内容：%s,备用：%s",

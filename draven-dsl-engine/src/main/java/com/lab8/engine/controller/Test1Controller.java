@@ -6,6 +6,7 @@ import com.lab8.engine.entity.DravenMetadata;
 import com.lab8.engine.entity.User;
 import com.lab8.engine.service.StrategyService;
 import com.lab8.engine.utils.PropertyAppender;
+import com.lab8.engine.utils.RedisUtil;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,15 @@ public class Test1Controller {
     private StrategyService test1Service;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedisUtil redisUtil;
     @GetMapping("sendRedisMessageTest")
     public String SendRedisMessage() {
+      int j = 0;
+        for (int i = 0; i < 10; i++) {
 
-        System.out.println("Sending message...");
+        }
+
         //第一个参数是，消息推送的主题名称；第二个参数是，要推送的消息信息
         //"chat"->主题
         //"我是一条消息"->要推送的消息

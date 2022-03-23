@@ -9,8 +9,8 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 
 /**
- * @Author : JCccc
- * @CreateTime : 2019-1-2
+ * @Author : xy
+ * @CreateTime : 2022-03-23 11:59:19
  * @Description :
  * @Point: Keep a good mood
  **/
