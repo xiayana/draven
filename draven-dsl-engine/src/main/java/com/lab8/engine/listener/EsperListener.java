@@ -5,7 +5,6 @@ import com.espertech.esper.client.UpdateListener;
 import com.lab8.engine.constants.CommonConstants;
 import com.lab8.engine.entity.AlertdetailHadoop;
 import com.lab8.engine.entity.DravenMetadata;
-import com.lab8.engine.entity.ErrorLog;
 import com.lab8.engine.service.AlertdetailHadoopService;
 import com.lab8.engine.service.EsperService;
 import com.lab8.engine.service.StrategyService;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -80,7 +78,7 @@ public class EsperListener implements UpdateListener {
                 esperListener.alertdetailHadoopService.insert(alertdetailHadoop);
                 log.info("esperResult insert success !!");
             }
-            System.out.println(String.format
+        /*    System.out.println(String.format
                     ("匹配成功，匹配到的cmd为：%s, dst为：%s,src为：%s,user为：%s,时间：%s,原始内容：%s,备用：%s",
                             eventBeans[0].get("cmd"),
                             eventBeans[0].get("dst"),
@@ -89,7 +87,8 @@ public class EsperListener implements UpdateListener {
                             System.currentTimeMillis(),
                             eventBeans[0].getUnderlying(),
                             eventBeans[0].get("pilicy_id")
-                    ));
+                    ));*/
+            alertdetailHadoop = null;
         }
     }
 }
