@@ -10,13 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-import java.lang.ref.SoftReference;
-import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 @Slf4j
 @Component
 public class KafkaConsumer {
@@ -29,8 +22,7 @@ public class KafkaConsumer {
         try {
             EPRuntime epRuntime = epServiceProvider.getEPRuntime();
           //  Map<String,String> json=new ConcurrentHashMap<String,String>();
-            SoftHashMap<String,String> map = new SoftHashMap();
-            map = JSONObject.parseObject(records,SoftHashMap.class);
+            SoftHashMap<String,String> map = JSONObject.parseObject(records,SoftHashMap.class);
             map.put("allowed",map.remove("flag"));
             map.put("host",map.get("ip"));
             map.put("timestamp",DateFormateUtil.formate( map.get("time")).getTime()/ 1000+"000");

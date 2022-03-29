@@ -80,7 +80,8 @@ public class AlertdetailHadoopServiceImpl implements AlertdetailHadoopService {
     public int deleteBatch(List<Integer> ids) {
         int i = 0;
         for (Integer id : ids) {
-            AlertdetailHadoop alertdetailHadoop =  AlertdetailHadoop.builder().id(id).build();
+            AlertdetailHadoop alertdetailHadoop = new AlertdetailHadoop();
+            alertdetailHadoop.setId(id);
             i += alertdetailHadoopDao.update(alertdetailHadoop);
         }
         return i;

@@ -10,7 +10,6 @@ import java.util.Date;
 
 
 @Data
-@Builder
 public class AlertdetailHadoop implements Serializable {
     private static final long serialVersionUID = 213724921152226069L;
             private Integer id;

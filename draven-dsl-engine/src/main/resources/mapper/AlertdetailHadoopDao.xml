@@ -26,7 +26,7 @@
         select
             id,timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid
 
-        from alertdetail_hadoop
+        from alertdetail_hadoop_draven
         where id = #{id}
     </select>
 
@@ -35,11 +35,11 @@
         select
            id, timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid
 
-        from alertdetail_hadoop
+        from alertdetail_hadoop_draven
         limit #{offset}, #{limit}
     </select>
     <select id="selectCreateTimeDesc" resultType="java.util.Date" parameterType="java.lang.String">
-        SELECT create_time FROM alertdetail_hadoop  where policyid =  #{policyid} order by create_time desc limit 1;
+        SELECT create_time FROM alertdetail_hadoop_draven  where policyid =  #{policyid} order by create_time desc limit 1;
     </select>
 
     <!--通过实体作为筛选条件查询-->
@@ -47,7 +47,7 @@
         select
         id,timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid
 
-        from alertdetail_hadoop
+        from alertdetail_hadoop_draven
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -96,12 +96,12 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into alertdetail_hadoop(timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid,create_time)
+        insert into alertdetail_hadoop_draven(timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid,create_time)
         values (#{timestamp}, #{site}, #{application}, #{hostname}, #{policyid}, #{alertsource}, #{sourcestreams}, #{alertexecutorid}, #{description}, #{remediationid}, #{remediationcallback}, #{alertcontext}, #{streamid},NOW())
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into alertdetail_hadoop(timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid)
+        insert into alertdetail_hadoop_draven(timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid)
         values
         <foreach collection="entities" item="entity" separator=",">
         (#{entity.timestamp}, #{entity.site}, #{entity.application}, #{entity.hostname}, #{entity.policyid}, #{entity.alertsource}, #{entity.sourcestreams}, #{entity.alertexecutorid}, #{entity.description}, #{entity.remediationid}, #{entity.remediationcallback}, #{entity.alertcontext}, #{entity.streamid})
@@ -109,7 +109,7 @@
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into alertdetail_hadoop(timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid)
+        insert into alertdetail_hadoop_draven(timestamp, site, application, hostname, policyid, alertsource, sourcestreams, alertexecutorid, description, remediationid, remediationcallback, alertcontext, streamid)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.timestamp}, #{entity.site}, #{entity.application}, #{entity.hostname}, #{entity.policyid}, #{entity.alertsource}, #{entity.sourcestreams}, #{entity.alertexecutorid}, #{entity.description}, #{entity.remediationid}, #{entity.remediationcallback}, #{entity.alertcontext}, #{entity.streamid})
@@ -119,7 +119,7 @@
 
     <!--通过主键修改数据-->
     <update id="update">
-        update alertdetail_hadoop
+        update alertdetail_hadoop_draven
         <set>
                         <if test="timestamp != null">
                 timestamp = #{timestamp},
