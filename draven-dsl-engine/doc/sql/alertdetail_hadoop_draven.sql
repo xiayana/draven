@@ -18,8 +18,8 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for alertdetail_hadoop
 -- ----------------------------
-DROP TABLE IF EXISTS `alertdetail_hadoop`;
-CREATE TABLE `alertdetail_hadoop` (
+DROP TABLE IF EXISTS `alertdetail_hadoop_draven`;
+CREATE TABLE `alertdetail_hadoop_draven` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `timestamp` varchar(100) DEFAULT NULL,
   `site` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,

@@ -37,6 +37,8 @@ public class AlertdetailHadoopController {
     private AlertdetailHadoopService alertdetailHadoopService;
     @Autowired
     private RedisQueueSender redisQueueSender;
+    static  AlertdetailHadoop alertdetailHadoop=new AlertdetailHadoop();
+
     /**
      * 通过主键查询单条数据
      *
@@ -55,16 +57,14 @@ public class AlertdetailHadoopController {
             try {
                 JSONArray arrayJson=JSON.parseArray(list.get(CommonConstants.NUMBER_ZERO));
                 JSONObject s1 = (JSONObject) arrayJson.get(CommonConstants.NUMBER_ZERO);
-                AlertdetailHadoop alertdetailHadoop = AlertdetailHadoop.builder()
-                        .policyid((String) ((Map<?, ?>) s1.get("tags")).get("policyId"))
-                        .site((String) ((Map<?, ?>) s1.get("tags")).get("site"))
-                        .application((String) ((Map<?, ?>) s1.get("tags")).get("application"))
-                        .alertexecutorid((String) ((Map<?, ?>) s1.get("tags")).get("alertExecutorId"))
-                        .alertsource((String) ((Map<?, ?>) s1.get("tags")).get("alertsource"))
-                        .sourcestreams((String) ((Map<?, ?>) s1.get("tags")).get("sourcestreams"))
-                        .alertcontext(String.valueOf(s1.get("alertContext")))
-                        .timestamp(String.valueOf(s1.get("timestamp")))
-                        .build();
+                alertdetailHadoop.setPolicyid((String) ((Map<?, ?>) s1.get("tags")).get("policyId"));
+                alertdetailHadoop.setSite((String) ((Map<?, ?>) s1.get("tags")).get("site"));
+                alertdetailHadoop.setApplication((String) ((Map<?, ?>) s1.get("tags")).get("application"));
+                alertdetailHadoop.setAlertexecutorid((String) ((Map<?, ?>) s1.get("tags")).get("alertExecutorId"));
+                alertdetailHadoop.setAlertsource((String) ((Map<?, ?>) s1.get("tags")).get("alertsource"));
+                alertdetailHadoop.setSourcestreams((String) ((Map<?, ?>) s1.get("tags")).get("sourcestreams"));
+                alertdetailHadoop.setAlertcontext(String.valueOf(s1.get("alertContext")));
+                alertdetailHadoop.setTimestamp(String.valueOf(s1.get("timestamp")));
                 alertdetailHadoopService.insert(alertdetailHadoop);
             }catch (Exception e){
                 log.error("body json error" + e.getMessage(), e);
