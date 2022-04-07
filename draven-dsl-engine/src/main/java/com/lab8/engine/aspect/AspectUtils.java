@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 @Component
 @Slf4j
 public class AspectUtils {
-    @Autowired
+   /* @Autowired
     private RedisUtil redisUtil;
     private DefaultParameterNameDiscoverer discoverer = new DefaultParameterNameDiscoverer();
     private ExpressionParser parser = new SpelExpressionParser();
@@ -57,5 +57,5 @@ public class AspectUtils {
                 }
             }
         }
-    }
+    }*/
 }

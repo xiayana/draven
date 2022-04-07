@@ -28,7 +28,10 @@ public class CommonConstants {
     public final static String ERROR_PARAMETERNULL = "参数为空";
     //场景id列表sceneIds
     public final static String PARAM_SCENEIDS="sceneDataIds";
-
+    //service画像指定标识
+    public final static String IDENTIFY_SERVICE="[service]";
+    //alertEvent为空
+    public final static String IDENTIFY_NONE="None";
     //校验数字以逗号分隔字符串正则表达式
     public final static String REGULAR_INT_COMMA="\\d+(,\\d+)*";
 

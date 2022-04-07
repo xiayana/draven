@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -49,6 +50,7 @@ public class SceneExtraceConsumer implements MsgConsumer {
      */
     private ResultData processMsg(BaseRedisMessage baseRedisMessage){
         ResultData resultData = new ResultData();
+        HashMap map = new HashMap();
         if(baseRedisMessage.getSendRedisMessageType().getMessageType().equals("esper_add")){
             return processEsperAddMsg(baseRedisMessage);
         }

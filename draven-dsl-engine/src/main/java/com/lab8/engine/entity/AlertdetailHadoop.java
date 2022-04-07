@@ -26,6 +26,14 @@ public class AlertdetailHadoop implements Serializable {
             private String remediationcallback;
             private String alertcontext;
             private String streamid;
+            private Integer alertType;//1策略2画像
             private Date updateTime;
             private Date createTime;
+
+            private Integer isMark;//0否1是
+            private String markValues;
+            private String alertUser;
+            private String alertMessage;
+            private Date alertMessageTime;
+
 }

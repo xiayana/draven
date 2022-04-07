@@ -19,7 +19,9 @@ public class DravenMetadata implements Serializable {
     private String dst;
     private String host;
     private String src;
-    private Integer timestamp;
+    private Integer yu;
+    private String timestamp;
+    private String timestampString;
     private String timestampStr;
     private String user;
     private String pid;
@@ -32,5 +34,8 @@ public class DravenMetadata implements Serializable {
     private Date createTime;
     private String description;
     private String ppname;
+    private String slideWinEnabled;
+
+
 
 }

@@ -4,10 +4,13 @@ import com.espertech.esper.client.EPAdministrator;
 import com.espertech.esper.client.EPStatement;
 import com.lab8.engine.config.EsperConfig;
 import com.lab8.engine.constants.CommonConstants;
+import com.lab8.engine.entity.ErrorLog;
 import com.lab8.engine.entity.ResultData;
 import com.lab8.engine.listener.EsperListener;
+import com.lab8.engine.service.ErrorLogService;
 import com.lab8.engine.service.EsperService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,7 +25,8 @@ public class EsperServiceimpl implements EsperService {
 
     @Resource(name = "epAdministrator")
     private EPAdministrator epAdministrator;
-
+    @Autowired
+    private ErrorLogService errorLogService;
     @Override
     public ResultData addEsperListener(int id, String esperSql) {
         ResultData resultData = new ResultData();
@@ -39,6 +43,9 @@ public class EsperServiceimpl implements EsperService {
             EsperConfig.STATEMENT_MAP.put(id, epStatement);
         }catch (Exception e){
             log.error("esperSql Exception-{}", e.getMessage());
+            ErrorLog errorLog = new ErrorLog();
+            errorLog.setMsg(e.getMessage());
+            errorLogService.insert(errorLog);
             resultData.setCode(CommonConstants.NUMBER_ONE);
             resultData.setMsg(e.getMessage());
             return resultData;

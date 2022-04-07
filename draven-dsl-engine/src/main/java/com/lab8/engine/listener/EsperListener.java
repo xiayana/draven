@@ -29,7 +29,7 @@ public class EsperListener implements UpdateListener {
     private static Calendar cal = Calendar.getInstance();
 
     @Autowired
-    private StrategyService test1Service;
+    private StrategyService strategyService;
     @Autowired
     private EsperService esperService;
     @Autowired
@@ -38,7 +38,7 @@ public class EsperListener implements UpdateListener {
     private RedisUtil redisUtil;
     @PostConstruct
     public void statr1() {
-        List<DravenMetadata> rules = test1Service.queryAll(new DravenMetadata());
+        List<DravenMetadata> rules = strategyService.queryAll(new DravenMetadata());
         rules.forEach(rule ->
                 esperService.addEsperListener(rule.getId(), rule.getEsperSql()));
     }
@@ -56,18 +56,26 @@ public class EsperListener implements UpdateListener {
                     eventBeans[CommonConstants.NUMBER_ZERO].get("ip").toString()!=null &&
                     eventBeans[CommonConstants.NUMBER_ZERO].get("user").toString()!=null
             ){
-                alertdetailHadoop.setTimestamp(eventBeans[CommonConstants.NUMBER_ZERO].get("timestamp").toString());
-                alertdetailHadoop.setHostname(eventBeans[CommonConstants.NUMBER_ZERO].get("ip").toString());
-                alertdetailHadoop.setAlertsource(eventBeans[CommonConstants.NUMBER_ZERO].get("user").toString());
+                alertdetailHadoop.setTimestamp(eventBeans[CommonConstants.NUMBER_ZERO].get("timestamp").toString().intern());
+                alertdetailHadoop.setHostname(eventBeans[CommonConstants.NUMBER_ZERO].get("ip").toString().intern());
+                alertdetailHadoop.setAlertsource("dravenStrategy");
+                alertdetailHadoop.setAlertUser(eventBeans[CommonConstants.NUMBER_ZERO].get("user").toString().intern());
             }
             alertdetailHadoop.setSite("sanbox");
-            alertdetailHadoop.setAlertcontext(eventBeans[CommonConstants.NUMBER_ZERO].getUnderlying().toString());
+            alertdetailHadoop.setAlertcontext(eventBeans[CommonConstants.NUMBER_ZERO].getUnderlying().toString().intern());
+            alertdetailHadoop.setMarkValues(eventBeans[CommonConstants.NUMBER_ZERO].getUnderlying().toString().intern());
+            alertdetailHadoop.setAlertMessage(eventBeans[CommonConstants.NUMBER_ZERO].getUnderlying().toString().intern());
             alertdetailHadoop.setAlertexecutorid("hdfsAuditLogAlertExecutor");
-            alertdetailHadoop.setPolicyid(eventBeans[CommonConstants.NUMBER_ZERO].get("pilicy_id").toString());
+            alertdetailHadoop.setApplication("hdfsAuditLog");
+            alertdetailHadoop.setSourcestreams("hdfsAuditLogEventStream");
+            alertdetailHadoop.setPolicyid(eventBeans[CommonConstants.NUMBER_ZERO].get("pilicy_id").toString().intern());
+            alertdetailHadoop.setAlertType(CommonConstants.NUMBER_ONE);
+            alertdetailHadoop.setIsMark(CommonConstants.NUMBER_ZERO);
+
            //该策略需要去重的时间
             if (Integer.valueOf((String) eventBeans[CommonConstants.NUMBER_ZERO].get("time_reweight")) > CommonConstants.NUMBER_ZERO) {
-                boolean b = esperListener.redisUtil.setNxExMin(eventBeans[CommonConstants.NUMBER_ZERO].get("pilicy_id").toString()
-                        ,eventBeans[CommonConstants.NUMBER_ZERO].get("pilicy_id").toString(),Long.valueOf((String) eventBeans[CommonConstants.NUMBER_ZERO].get("time_reweight")));
+                boolean b = esperListener.redisUtil.setNxExMin(eventBeans[CommonConstants.NUMBER_ZERO].get("pilicy_id").toString().intern()
+                        ,eventBeans[CommonConstants.NUMBER_ZERO].get("pilicy_id").toString().intern(),Long.valueOf((String) eventBeans[CommonConstants.NUMBER_ZERO].get("time_reweight")));
                 if(b){
                     esperListener.alertdetailHadoopService.insert(alertdetailHadoop);
                     log.info("esperResult insert success !!");
